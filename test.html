@@ -79,10 +79,10 @@
   <div class="container">
     <div class="icon"></div>
     <h3>即将打开微信小程序</h3>
-    <p>如果未自动跳转，请点击下方按钮</p>
+    <p>请点击下方按钮</p>
 
     <!-- 这里的 href 会被 JS 动态替换 -->
-    <a href="#" id="jump-btn" class="btn">打开小程序</a>
+    <a href="#" id="jump-btn" class="btn">打开小程序(测试)</a>
 
     <div class="tips">请确保手机已安装微信</div>
   </div>
@@ -128,13 +128,13 @@
     btn.href = schemeUrl;
 
     // 2. 页面加载完成后尝试自动跳转
-    window.onload = function () {
-      // 简单的防抖，避免页面还没渲染完就跳
-      setTimeout(function () {
-        // 尝试跳转
-        window.location.href = schemeUrl;
-      }, 300);
-    };
+    // window.onload = function () {
+    //   // 简单的防抖，避免页面还没渲染完就跳
+    //   setTimeout(function () {
+    //     // 尝试跳转
+    //     window.location.href = schemeUrl;
+    //   }, 300);
+    // };
 
     // (可选) 打印日志方便调试
     console.log('Target Scheme:', schemeUrl);
