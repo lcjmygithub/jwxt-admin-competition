@@ -114,8 +114,8 @@
       if (cfg.appid) params.push('appid=' + cfg.appid);
       if (cfg.path) params.push('path=' + cfg.path);
       // 对 query 进行编码，防止特殊字符导致链接失效
-      if (cfg.query) params.push('query=' + encodeURIComponent(cfg.query));
-      if (cfg.env_version) params.push('env_version=' + cfg.env_version);
+      // if (cfg.query) params.push('query=' + encodeURIComponent(cfg.query));
+      // if (cfg.env_version) params.push('env_version=' + cfg.env_version);
 
       return baseUrl + '?' + params.join('&');
     }
