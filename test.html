@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <!-- 必须设置 viewport 以适配移动端屏幕 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>正在打开小程序...</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      width: 80%;
+    }
+
+    .icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      /* 这里放一个微信图标或者你小程序的Logo */
+      background-image: url('https://open.weixin.qq.com/zh_CN/htmledition/res/assets/res-design-download/icon64_wx_logo.png');
+      background-size: cover;
+      display: inline-block;
+      border-radius: 12px;
+    }
+
+    h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 14px 0;
+      background-color: #07c160;
+      /* 微信绿 */
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(7, 193, 96, 0.3);
+      transition: background-color 0.2s;
+    }
+
+    .btn:active {
+      background-color: #06ad56;
+    }
+
+    .tips {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="icon"></div>
+    <h3>即将打开微信小程序</h3>
+    <p>如果未自动跳转，请点击下方按钮</p>
+
+    <!-- 这里的 href 会被 JS 动态替换 -->
+    <a href="#" id="jump-btn" class="btn">打开小程序</a>
+
+    <div class="tips">请确保手机已安装微信</div>
+  </div>
+
+  <script>
+    // ================= 配置区域 (修改这里) =================
+    const config = {
+      // 1. 你的小程序 AppID (必填)
+      appid: 'wxc42fb72b12b84aaf',
+
+      // 2. 跳转的具体路径 (选填，不填则跳首页)
+      // 注意：不要以 / 开头
+      path: 'pages/loadingPage/index',
+
+      // 3. 携带的参数 (选填)
+      // 格式: key=value&key2=value2
+      query: 'id=123&source=h5_promo',
+
+      // 4. 版本 (release=正式版, trial=体验版, develop=开发版)
+      env_version: '1.0.0'
+    };
+    // ======================================================
+
+    // 生成 URL Scheme 的函数
+    function generateScheme(cfg) {
+      let baseUrl = 'weixin://dl/business/';
+      let params = [];
+
+      if (cfg.appid) params.push('appid=' + cfg.appid);
+      if (cfg.path) params.push('path=' + cfg.path);
+      // 对 query 进行编码，防止特殊字符导致链接失效
+      if (cfg.query) params.push('query=' + encodeURIComponent(cfg.query));
+      if (cfg.env_version) params.push('env_version=' + cfg.env_version);
+
+      return baseUrl + '?' + params.join('&');
+    }
+
+    // 执行逻辑
+    const schemeUrl = generateScheme(config);
+    const btn = document.getElementById('jump-btn');
+
+    // 1. 设置按钮的跳转链接
+    btn.href = schemeUrl;
+
+    // 2. 页面加载完成后尝试自动跳转
+    window.onload = function () {
+      // 简单的防抖，避免页面还没渲染完就跳
+      setTimeout(function () {
+        // 尝试跳转
+        window.location.href = schemeUrl;
+      }, 300);
+    };
+
+    // (可选) 打印日志方便调试
+    console.log('Target Scheme:', schemeUrl);
+  </script>
+
+</body>
+
+</html>
