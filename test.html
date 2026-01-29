@@ -102,7 +102,7 @@
       query: 'id=123&source=h5_promo',
 
       // 4. 版本 (release=正式版, trial=体验版, develop=开发版)
-      env_version: 'release'
+      env_version: 'develop'
     };
     // ======================================================
 
@@ -115,7 +115,7 @@
       if (cfg.path) params.push('path=' + cfg.path);
       // 对 query 进行编码，防止特殊字符导致链接失效
       // if (cfg.query) params.push('query=' + encodeURIComponent(cfg.query));
-      // if (cfg.env_version) params.push('env_version=' + cfg.env_version);
+      if (cfg.env_version) params.push('env_version=' + cfg.env_version);
 
       return baseUrl + '?' + params.join('&');
     }
